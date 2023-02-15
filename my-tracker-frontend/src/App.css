@@ -47,6 +47,9 @@
 {
   margin-top: 16px !important;
 }
+.gap {
+  margin-right: 5px;
+}
 .control-block
 {
   width:50px !important;

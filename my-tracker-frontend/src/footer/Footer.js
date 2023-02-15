@@ -5,26 +5,29 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
 
 const Footer = (props) => {
+
     return (
-        <Container className= {props.className}>
-        <ROW >
-          <COL >
-            <Button className="text-uppercase" variant="success">add</Button>
-            </COL><COL >
-            <Button className="text-uppercase" variant="primary">update</Button>
-            </COL><COL >
-            <Button className="text-uppercase" variant="warning">clear</Button>
-            </COL><COL >
-            <Button className="text-uppercase" variant="dark">next</Button>
-          </COL>
-          </ROW>
-         
-            <div className="calculate">
-            
-          <Button  className="text-uppercase btn-lg" variant="danger">calculate</Button>
-         </div>
-        
-        </Container>
+      <Container className = {props.className} >
+             <Button className="text-uppercase  btn-outline-primary gap" variant='none' onClick={props.callback}>
+              add
+            </Button>
+            <Button className="text-uppercase  btn-outline-success gap" variant='none'>
+              update
+            </Button>
+            <Button type="reset" className="text-uppercase  btn-outline-warning gap" variant='none'>
+              clear
+            </Button>
+            <Button className="text-uppercase  btn-outline-dark" variant='none'>
+              save
+            </Button>
+          
+       
+        <div className="calculate">
+          <Button className="text-uppercase btn-bg btn-outline-danger"  variant='none'>
+            calculate
+          </Button>
+        </div>
+      </Container>
     );
 }
 
