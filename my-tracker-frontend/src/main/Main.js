@@ -13,8 +13,9 @@ const Main = (props) => {
   const [comment, setComment] = useState('');
   const [min, setMin] = useState('');
   const [hour, setHour] = useState('');
+  const [key, setKey] = useState('');
   const [deleteHiglight, setDeleteHiglight] = useState('');
-  let [addition, setAddition] = useState('');
+  const [task, setTask] = useState({key:0, name:'',hour:0,min:0,comment:''});
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -30,20 +31,27 @@ const Main = (props) => {
   const add = (event) => {
     if (validate ())
     { 
-        setAddition(name + ":" + hour + ":" +min + ":" + comment);
+        task.name = name;
+        task.key = Date.now();
+        task.hour = hour;
+        task.comment = comment;
+        task.min = min; 
+        setKey(task.key);//it's easy to sense such change and hence the rendering
+        setTask(task);
     }
   };
   const populate = (data) => 
   {
-    setName(data.split(':')[0]);
-    setHour(data.split(':')[1]);
-    setMin(data.split(':')[2]);
-    setComment(data.split(':')[3]);
+    setName(data.name);
+    setHour(data.hour);
+    setMin(data.min);
+    setKey(data.key);
+    setComment(data.comment);
   }
   const clearDisplay = () => {
     setName('');
-    setHour('0');
-    setMin('0');
+    setHour(0);
+    setMin(0);
     setComment('');
     setDeleteHiglight(-1*deleteHiglight);//to cause useEffect to work when this value changes
   };
@@ -111,7 +119,7 @@ const Main = (props) => {
           <Footer className="general-border calculate" add = {add} clear = {clearDisplay} />
         </Form>
         </COL><COL >
-      <ListTasks  className = "list-border" data= {addition} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
+      <ListTasks  className = "list-border" myKey={key} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
       </Container>
       </>
     );

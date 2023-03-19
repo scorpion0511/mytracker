@@ -8,42 +8,51 @@ import COL from 'react-bootstrap/COL';
 
 
 const ListTasks = (props) => {
-   const [displayText, setDisplayText] = useState([]);
+   const [displayText, setDisplayText] = useState([{key:0, name:'', hour:0, min:0, comment:''}]);
 
    const updateMatchingRow = (rows, task) =>
    {
-       const found = rows.filter(row => row.split(':')[0] == task.split(':')[0]);   
        let foundIt = false;
        for (let i = 0; i < rows.length; i++) {
-         if (rows[i].split(':')[0] == task.split(':')[0]) {
-            rows[i] = task;
+         if (rows[i].name == task.name) {
+            rows[i] = copy(task);
             foundIt = true;
          }
        }
-       if (!foundIt)
+       if (!foundIt && task.name.trim().length > 0)
        {
-        rows = [task, ...rows]
+        rows = [copy(task), ...rows]
        }
        return rows;
    }
       //keep tacks of x
       //don't run unless props changed
      useEffect(() => {
-      const rows = updateMatchingRow (displayText, props.data);
+      const rows = updateMatchingRow (displayText, props.task);
             setDisplayText(rows);
             setSelectedRowHighlighted(-1);
             props.clear();
-      }, [props.data]);
+      }, [props.myKey]);
 
       useEffect(() => {
         setSelectedRowHighlighted(-1);
       }, [props.delHiglight]);
 
+  const copy = (task) =>
+  {
+     const copy = {};
+     copy.name =  task.name;
+     copy.hour = task.hour;
+     copy.min = task.min;
+     copy.comment = task.comment;
+     copy.key = task.key;
+     return copy;
+  }   
   const calculateHour = () =>
   {
     const sum = displayText.reduce((accumulator , currentValue) => 
     {
-        const value = parseInt(currentValue.split(':')[1]);
+        const value = parseInt(currentValue.hour);
         if (isNaN(value)) 
         {
           return accumulator;
@@ -59,7 +68,7 @@ const ListTasks = (props) => {
   {
     const sum = displayText.reduce((accumulator , currentValue) => 
     {
-        const value = parseInt(currentValue.split(':')[2]);
+        const value = parseInt(currentValue.min);
         if (isNaN(value)) 
         {
           return accumulator;
@@ -90,12 +99,16 @@ const ListTasks = (props) => {
     }
     setDeletedRowHighlighted(-1);
   }
-
+  const getRows = () =>
+  {
+    return displayText.filter(element => element.key > 0);
+  }
   return (
-    <Container className={props.className}>
+    getRows().length > 0 ?
+    (<Container className={props.className}>
       <ROW>
       <ListGroup>
-        {displayText.map((text,index) => (
+        {getRows().map((text, index) => (
           <ListGroup.Item 
           
           style={{
@@ -109,7 +122,7 @@ const ListTasks = (props) => {
 
           onClick={() => setDeletedRowHighlighted(index)} 
           
-          key={index}>{text}</ListGroup.Item>
+          key={index}>{text.name}-{text.hour}:{text.min}[{text.comment}]</ListGroup.Item>
         ))}
       </ListGroup>
       </ROW>
@@ -123,7 +136,7 @@ const ListTasks = (props) => {
             Delete
       </Button></COL>
       </ROW>
-    </Container>
+    </Container>) :''
   );
 };
 export default ListTasks;

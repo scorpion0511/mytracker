@@ -1,11 +1,7 @@
 import './App.css';
 import Footer from './footer/Footer';
 import Main from './main/Main';
-import Header from './header/Header';
 import 'bootstrap/dist/css/bootstrap.css';
-import Container from 'react-bootstrap/Container';
-import Test from './main/Test1';
-import Test1 from './main/Test1';
 
 
 function App() {
