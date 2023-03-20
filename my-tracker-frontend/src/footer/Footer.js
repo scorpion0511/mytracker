@@ -12,7 +12,7 @@ const Footer = (props) => {
             <Button className="text-uppercase  btn-outline-danger gap" variant='none' onClick={props.update}>
               update
             </Button>
-            <Button type="reset" className="text-uppercase  btn-outline-warning gap" variant='none'  onClick={props.clear}>
+            <Button className="text-uppercase  btn-outline-warning gap" variant='none'  onClick={props.clear}>
               clear
             </Button>
             <Button className="text-uppercase  btn-outline-dark gap" variant='none'>

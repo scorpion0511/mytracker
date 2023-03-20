@@ -50,6 +50,34 @@ const ListTasks = (props) => {
      copy.myKey = task.myKey == 0 ? Date.now() : task.myKey;
      return copy;
   }   
+
+  const listView = () =>
+  {
+    let display = '';
+     const tasks = aggregateTasks();
+     tasks.forEach(element => {
+      display += element.name + ":" + element.hour + ":" + element.min + '\n';
+     });
+     alert(display);
+  }
+  const aggregateTasks = () =>
+  {
+    const aggregatedArray = [];
+
+    displayText.forEach(item => {
+    const index = aggregatedArray.findIndex(x => x.name === item.name);
+    if (item.name.length > 0)
+    {
+        if (index === -1) {
+          aggregatedArray.push({ name: item.name, hour: item.hour, min: item.min });
+        } else {
+          aggregatedArray[index].hour = parseInt(aggregatedArray[index].hour) + parseInt(item.hour);
+          aggregatedArray[index].min  = parseInt(aggregatedArray[index].min) + parseInt(item.min);
+        }
+    }
+  });
+  return aggregatedArray;
+  }
   const calculateHour = () =>
   {
     const sum = displayText.reduce((accumulator , currentValue) => 
@@ -128,15 +156,25 @@ const ListTasks = (props) => {
         ))}
       </ListGroup>
       </ROW>
-      <ROW>
-        <COL>
-      <Button className="text-uppercase btn-bg btn-outline-success"  variant='none' onClick={calculate}>
+      <ROW className='App'>
+       <COL>
+      <Button className="text-uppercase btn-outline-success gap"  variant='none' onClick={calculate}>
             calculate Time
       </Button>
       </COL>
-      <COL> <Button className="text-uppercase btn-bg btn-outline-danger"  variant='none' onClick={deleteRow}>
+      
+      <COL>
+      <Button className="text-uppercase btn-outline-success gap"  variant='none' onClick={listView}>
+            list tasks
+      </Button>
+      </COL>
+
+      <COL>
+       <Button className="text-uppercase btn-outline-danger gap"  variant='none' onClick={deleteRow}>
             Delete
-      </Button></COL>
+      </Button>
+      </COL>
+
       </ROW>
     </Container>) :''
   );
