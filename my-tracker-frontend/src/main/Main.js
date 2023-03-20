@@ -13,14 +13,19 @@ const Main = (props) => {
   const [comment, setComment] = useState('');
   const [min, setMin] = useState('');
   const [hour, setHour] = useState('');
-  const [key, setKey] = useState('');
+  const [updateState, setUpdateState] = useState('');
+  const [myKey, setMyKey] = useState(0);
   const [deleteHiglight, setDeleteHiglight] = useState('');
-  const [task, setTask] = useState({key:0, name:'',hour:0,min:0,comment:''});
+  const [flag, setFlag] = useState('');
+  const [task, setTask] = useState({myKey:0, name:'',hour:0,min:0,comment:''});
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
   const handleCommentChange = (event) => {
     setComment(event.target.value);
+  };
+  const handleMyKeyChange = (event) => {
+    setMyKey(event.target.value);
   };
   const handleHourChange = (event) => {
     setHour(event.target.value);
@@ -29,23 +34,33 @@ const Main = (props) => {
     setMin(event.target.value);
   };
   const add = (event) => {
+    setUpdateState('A');
+    task.myKey = 0;
+    prepareTaskData();
+  };
+  const update = (event) => {
+    setUpdateState('U');
+    task.myKey = myKey;
+    prepareTaskData();
+  };
+  const prepareTaskData = () =>
+  {
     if (validate ())
     { 
-        task.name = name;
-        task.key = Date.now();
-        task.hour = hour;
-        task.comment = comment;
-        task.min = min; 
-        setKey(task.key);//it's easy to sense such change and hence the rendering
-        setTask(task);
+      task.name = name;
+      task.hour = hour;
+      task.comment = comment;
+      task.min = min; 
+      setFlag(name+hour+min+comment);
+      setTask(task); //not needed for listTask repaint as react will repaint child because of myKey change
     }
-  };
+  }
   const populate = (data) => 
   {
     setName(data.name);
     setHour(data.hour);
     setMin(data.min);
-    setKey(data.key);
+    setMyKey(data.myKey); 
     setComment(data.comment);
   }
   const clearDisplay = () => {
@@ -53,6 +68,7 @@ const Main = (props) => {
     setHour(0);
     setMin(0);
     setComment('');
+    setMyKey(0); //calling setMyKey will lead repaint and calling of clearDisplay again [unpredicated work]
     setDeleteHiglight(-1*deleteHiglight);//to cause useEffect to work when this value changes
   };
   
@@ -116,10 +132,12 @@ const Main = (props) => {
               You can write a short comment.
             </Form.Text>
           </Form.Group>
-          <Footer className="general-border calculate" add = {add} clear = {clearDisplay} />
+          <Form.Group style={{ display: 'none' }} controlId="formKey">
+          <Form.Control  type="text" value={myKey} onChange={handleMyKeyChange}/></Form.Group>
+          <Footer className="general-border calculate" add = {add} update = {update} clear = {clearDisplay} />
         </Form>
         </COL><COL >
-      <ListTasks  className = "list-border" myKey={key} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
+      <ListTasks  className = "list-border" flag={flag} updateState={updateState} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
       </Container>
       </>
     );

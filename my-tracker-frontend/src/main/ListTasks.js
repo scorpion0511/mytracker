@@ -8,15 +8,17 @@ import COL from 'react-bootstrap/COL';
 
 
 const ListTasks = (props) => {
-   const [displayText, setDisplayText] = useState([{key:0, name:'', hour:0, min:0, comment:''}]);
+   const [displayText, setDisplayText] = useState([{myKey:0, name:'', hour:0, min:0, comment:''}]);
 
    const updateMatchingRow = (rows, task) =>
    {
        let foundIt = false;
        for (let i = 0; i < rows.length; i++) {
-         if (rows[i].name == task.name) {
+         if (rows[i].name == task.name && rows[i].myKey == task.myKey && task.myKey !=0 && props.updateState == 'U') 
+         {
             rows[i] = copy(task);
             foundIt = true;
+            break;
          }
        }
        if (!foundIt && task.name.trim().length > 0)
@@ -32,7 +34,7 @@ const ListTasks = (props) => {
             setDisplayText(rows);
             setSelectedRowHighlighted(-1);
             props.clear();
-      }, [props.myKey]);
+      }, [props.flag]);
 
       useEffect(() => {
         setSelectedRowHighlighted(-1);
@@ -45,7 +47,7 @@ const ListTasks = (props) => {
      copy.hour = task.hour;
      copy.min = task.min;
      copy.comment = task.comment;
-     copy.key = task.key;
+     copy.myKey = task.myKey == 0 ? Date.now() : task.myKey;
      return copy;
   }   
   const calculateHour = () =>
@@ -101,7 +103,7 @@ const ListTasks = (props) => {
   }
   const getRows = () =>
   {
-    return displayText.filter(element => element.key > 0);
+    return displayText.filter(element => element.name.length > 0);
   }
   return (
     getRows().length > 0 ?
