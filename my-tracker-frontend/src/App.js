@@ -11,7 +11,9 @@ function App() {
     //   <Main className="w-75 general-border" />
     //   {/* <Footer className="w-50 general-border" /> */}
     // </Container>
+    <>
     <Main/>
+    </>
   );
 }
 

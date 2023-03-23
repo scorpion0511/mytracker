@@ -30,5 +30,13 @@ public class WeekServiceImpl implements WeekService {
 		}
 		return create(week);
 	}
+	@Override
+	public Week createAndLink(Week week) {
+		for (Task task: week.getTasks())
+		{
+			task.setWeek(week);
+		}
+		return create(week);
+	}
 
 }

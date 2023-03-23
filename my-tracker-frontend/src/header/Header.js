@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import ROW from 'react-bootstrap/ROW'; 
 import COL from 'react-bootstrap/COL'; 
+
 const Header = (props) => {
   const ver = <span style={{'fontSize': '0.3em',"color" :"red" }}>[Version: 1.0]</span>;
     return (

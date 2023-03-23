@@ -16,12 +16,12 @@ import javax.persistence.SequenceGenerator;
 public class Week {
 	@Id
 	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "week_seq")
-    @SequenceGenerator(name = "week_seq", sequenceName = "WEEK_SEQUENCE")
+    @SequenceGenerator(allocationSize = 1, name = "week_seq", sequenceName = "WEEK_SEQUENCE")
 	private Long id;
 	
 	private String week;
 	
-    @OneToMany(mappedBy = "week", fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "week", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<Task> tasks = new ArrayList<Task>();
 
 	public List<Task> getTasks() {

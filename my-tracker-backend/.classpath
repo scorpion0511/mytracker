@@ -31,5 +31,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/0G5683649/panorama/workspaces/workspace/ThirdPartyLibraries/lib/edb/edb-jdbc18.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

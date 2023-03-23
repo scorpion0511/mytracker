@@ -15,7 +15,7 @@ public class Task
 {
 	@Id
 	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
-    @SequenceGenerator(name = "task_seq", sequenceName = "TASK_SEQUENCE")
+    @SequenceGenerator(allocationSize = 1, name = "task_seq", sequenceName = "TASK_SEQUENCE")
 	private Long id;
 	@Column(length = 100 , nullable = false)
 	private String name;
@@ -25,8 +25,8 @@ public class Task
 	private int min;
 	@Column(name= "description",length = 100)
 	private String comment;
-	@Column(nullable = false)
-	private Long key;
+	@Column(name= "key", nullable = false)
+	private Long myKey;
 	
 	@ManyToOne
 	@JoinColumn(name = "week_id", nullable = false)
@@ -80,12 +80,12 @@ public class Task
 		this.comment = comment;
 	}
 
-	public Long getKey() {
-		return key;
+	public Long getMyKey() {
+		return myKey;
 	}
 
-	public void setKey(Long key) {
-		this.key = key;
+	public void setMyKey(Long key) {
+		this.myKey = key;
 	}
 
 }

@@ -8,7 +8,7 @@ import COL from 'react-bootstrap/COL';
 
 
 const ListTasks = (props) => {
-   const [displayText, setDisplayText] = useState([{myKey:0, name:'', hour:0, min:0, comment:''}]);
+   const [tasks, setTasks] = useState([]);
 
    const updateMatchingRow = (rows, task) =>
    {
@@ -30,8 +30,8 @@ const ListTasks = (props) => {
       //keep tacks of x
       //don't run unless props changed
      useEffect(() => {
-      const rows = updateMatchingRow (displayText, props.task);
-            setDisplayText(rows);
+      const rows = updateMatchingRow (tasks, props.task);
+            setTasks(rows);
             setSelectedRowHighlighted(-1);
             props.clear();
       }, [props.flag]);
@@ -64,7 +64,7 @@ const ListTasks = (props) => {
   {
     const aggregatedArray = [];
 
-    displayText.forEach(item => {
+    tasks.forEach(item => {
     const index = aggregatedArray.findIndex(x => x.name === item.name);
     if (item.name.length > 0)
     {
@@ -80,7 +80,7 @@ const ListTasks = (props) => {
   }
   const calculateHour = () =>
   {
-    const sum = displayText.reduce((accumulator , currentValue) => 
+    const sum = tasks.reduce((accumulator , currentValue) => 
     {
         const value = parseInt(currentValue.hour);
         if (isNaN(value)) 
@@ -96,7 +96,7 @@ const ListTasks = (props) => {
   }
   const calculateMin = () =>
   {
-    const sum = displayText.reduce((accumulator , currentValue) => 
+    const sum = tasks.reduce((accumulator , currentValue) => 
     {
         const value = parseInt(currentValue.min);
         if (isNaN(value)) 
@@ -121,7 +121,7 @@ const ListTasks = (props) => {
 
   const deleteRow = () =>
   {
-    displayText.splice(deletedRowHighlighted, 1);
+    tasks.splice(deletedRowHighlighted, 1);
     if (deletedRowHighlighted == selectedRowHighlighted )
     {
       setSelectedRowHighlighted(-1);
@@ -129,9 +129,25 @@ const ListTasks = (props) => {
     }
     setDeletedRowHighlighted(-1);
   }
+
+  const save = (e) => {
+    const week = props.range;
+    fetch('http://localhost:8080/tracker/api/addWeek', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({ week, tasks})
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error))
+      ;
+  };
+
   const getRows = () =>
   {
-    return displayText.filter(element => element.name.length > 0);
+    return tasks.filter(element => element.name.length > 0);
   }
   return (
     getRows().length > 0 ?
@@ -168,7 +184,11 @@ const ListTasks = (props) => {
             list tasks
       </Button>
       </COL>
-
+      <COL>
+      <Button className="text-uppercase  btn-outline-dark gap" variant='none' onClick={save}>
+              save
+            </Button>
+            </COL>
       <COL>
        <Button className="text-uppercase btn-outline-danger gap"  variant='none' onClick={deleteRow}>
             Delete

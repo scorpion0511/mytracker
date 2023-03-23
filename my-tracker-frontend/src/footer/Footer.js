@@ -15,10 +15,7 @@ const Footer = (props) => {
             <Button className="text-uppercase  btn-outline-warning gap" variant='none'  onClick={props.clear}>
               clear
             </Button>
-            <Button className="text-uppercase  btn-outline-dark gap" variant='none'>
-              save
-            </Button>
-
+            
       </Container>
     );
 }

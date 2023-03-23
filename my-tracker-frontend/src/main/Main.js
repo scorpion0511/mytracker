@@ -7,10 +7,14 @@ import COL from 'react-bootstrap/COL';
 import Footer from '../footer/Footer';
 import { useState } from 'react';
 import Header from '../header/Header';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from "moment";
 
 const Main = (props) => {
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
+  const [range, setRange] = useState('');
   const [min, setMin] = useState('');
   const [hour, setHour] = useState('');
   const [updateState, setUpdateState] = useState('');
@@ -71,7 +75,17 @@ const Main = (props) => {
     setMyKey(0); //calling setMyKey will lead repaint and calling of clearDisplay again [unpredicated work]
     setDeleteHiglight(-1*deleteHiglight);//to cause useEffect to work when this value changes
   };
-  
+  const [selectedDate, setSelectedDate] = useState(null);
+
+    const handleDateChange = (date) => {
+    
+        const startOfWeek = moment(date).startOf('isoWeek');
+        const endOfWeek = moment(date).endOf("isoWeek");
+        const weekYear = startOfWeek.format("D") + "-" + endOfWeek.format("D") + "/" + startOfWeek.format("MM") + "/" + startOfWeek.format("YYYY");
+        setSelectedDate(date);
+        setRange(weekYear);
+
+      };
   const validate = () =>
   {
     let result = true;
@@ -97,6 +111,7 @@ const Main = (props) => {
      <Container className= {props.className}>
       <ROW>
         <Header className='general-border' />
+        <ROW><DatePicker selected={selectedDate} onChange={date => handleDateChange(date)}/></ROW>
       <COL>
         <Form>
           <Form.Group  controlId="formTaskName">
@@ -137,7 +152,7 @@ const Main = (props) => {
           <Footer className="general-border calculate" add = {add} update = {update} clear = {clearDisplay} />
         </Form>
         </COL><COL >
-      <ListTasks  className = "list-border" flag={flag} updateState={updateState} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
+      <ListTasks  className = "list-border" range={range} flag={flag} updateState={updateState} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
       </Container>
       </>
     );

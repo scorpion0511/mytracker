@@ -9,4 +9,6 @@ public interface WeekService {
 	public Week create(Week week);
 
 	public Week create(List<Task> tasks);
+
+	public Week createAndLink(Week week);
 }
