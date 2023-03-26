@@ -82,3 +82,9 @@
     transform: rotate(360deg);
   }
 }
+.datePicker
+{
+  width:100px;
+  color:rgb(18, 51, 24);
+  background-color: rgb(10, 236, 240);
+}

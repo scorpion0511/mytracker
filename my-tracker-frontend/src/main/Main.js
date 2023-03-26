@@ -74,6 +74,10 @@ const Main = (props) => {
     setMyKey(data.myKey); 
     setComment(data.comment);
   }
+  const closeWeek = () => {
+      setSelectedDate(null);
+      clearDisplay();
+  }
   const clearDisplay = () => {
     setName('');
     setHour(0);
@@ -100,17 +104,17 @@ const Main = (props) => {
     if (name.trim() === '') 
     {
       result = false;
-      error += ' Name';
+      error += ' [Task Name]';
     }
     if (hour == 0 && min == 0) 
     {
       result = false;
-      error += ' Time';
+      error += ' [Time Spent]';
     }
     if (selectedDate == null || selectedDate === '') 
     {
       result = false;
-      error += ' Calendar';
+      error += ' [Date]';
     }
     if (!result)
     {
@@ -123,7 +127,11 @@ const Main = (props) => {
      <Container className= {props.className}>
       <ROW>
         <Header className='general-border' />
-        <ROW><DatePicker selected={selectedDate} onChange={date => handleDateChange(date)}/></ROW>
+        <Form.Group  controlId="formTaskName">
+            <Form.Label>Pick Date</Form.Label>
+            <DatePicker className='datePicker' selected={selectedDate} onChange={date => handleDateChange(date)}/>
+          </Form.Group>
+        
       <COL>
         <Form>
           <Form.Group  controlId="formTaskName">
@@ -164,7 +172,7 @@ const Main = (props) => {
           <Footer className="general-border calculate" add = {add} update = {update} clear = {clearDisplay} />
         </Form>
         </COL><COL >
-      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
+      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState}  closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
       </Container>
       </>
     );

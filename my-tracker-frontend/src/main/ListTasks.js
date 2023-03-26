@@ -130,7 +130,15 @@ const ListTasks = (props) => {
     }
     setDeletedRowHighlighted(-1);
   }
-
+  const closeWeek = (e) =>
+  {
+    save(e);
+    tasks.length = 0;
+    tasks.splice(deletedRowHighlighted, 1);
+    setSelectedRowHighlighted(-1);
+    setDeletedRowHighlighted(-1);
+    props.closeWeek();
+  }
   const save = (e) => {
     const week = props.week.range;
     const id = props.week.id;
@@ -198,10 +206,14 @@ const ListTasks = (props) => {
             </COL>
       <COL>
        <Button className="text-uppercase btn-outline-danger gap"  variant='none' onClick={deleteRow}>
-            Delete
+            remove
       </Button>
       </COL>
-
+      <COL>
+       <Button className="text-uppercase btn-outline-primary gap"  variant='none' onClick={closeWeek}>
+            close week
+      </Button>
+      </COL>
       </ROW>
     </Container>) :''
   );
