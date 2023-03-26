@@ -9,6 +9,7 @@ import COL from 'react-bootstrap/COL';
 
 const ListTasks = (props) => {
    const [tasks, setTasks] = useState([]);
+   const [week, setWeek] = useState({range:'', id: 0});
 
    const updateMatchingRow = (rows, task) =>
    {
@@ -131,17 +132,23 @@ const ListTasks = (props) => {
   }
 
   const save = (e) => {
-    const week = props.range;
-    fetch('http://localhost:8080/tracker/api/addWeek', {
+    const week = props.week.range;
+    const id = props.week.id;
+    fetch('http://localhost:8080/tracker/api/save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
       },
-      body: JSON.stringify({ week, tasks})
+      body: JSON.stringify({ id, week, tasks})
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error))
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+      .then(data => props.updateWeekId(data))
+      .catch(error => alert(error))
       ;
   };
 

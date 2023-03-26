@@ -14,13 +14,13 @@ import moment from "moment";
 const Main = (props) => {
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
-  const [range, setRange] = useState('');
   const [min, setMin] = useState('');
   const [hour, setHour] = useState('');
   const [updateState, setUpdateState] = useState('');
   const [myKey, setMyKey] = useState(0);
   const [deleteHiglight, setDeleteHiglight] = useState('');
   const [flag, setFlag] = useState('');
+  const [week, setWeek] = useState({range:'', id: 0});
   const [task, setTask] = useState({myKey:0, name:'',hour:0,min:0,comment:''});
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -59,6 +59,13 @@ const Main = (props) => {
       setTask(task); //not needed for listTask repaint as react will repaint child because of myKey change
     }
   }
+  const updateWeekId = (weekId) => 
+  {
+    if (typeof weekId === 'number' && !isNaN(weekId) && Number.isInteger(weekId))
+    {
+      week.id = weekId;
+    }
+  }
   const populate = (data) => 
   {
     setName(data.name);
@@ -81,9 +88,9 @@ const Main = (props) => {
     
         const startOfWeek = moment(date).startOf('isoWeek');
         const endOfWeek = moment(date).endOf("isoWeek");
-        const weekYear = startOfWeek.format("D") + "-" + endOfWeek.format("D") + "/" + startOfWeek.format("MM") + "/" + startOfWeek.format("YYYY");
+        const weekText = startOfWeek.format("D") + "-" + endOfWeek.format("D") + "/" + startOfWeek.format("MM") + "/" + startOfWeek.format("YYYY");
         setSelectedDate(date);
-        setRange(weekYear);
+        setWeek({id:0,range:weekText});
 
       };
   const validate = () =>
@@ -99,6 +106,11 @@ const Main = (props) => {
     {
       result = false;
       error += ' Time';
+    }
+    if (selectedDate == null || selectedDate === '') 
+    {
+      result = false;
+      error += ' Calendar';
     }
     if (!result)
     {
@@ -152,7 +164,7 @@ const Main = (props) => {
           <Footer className="general-border calculate" add = {add} update = {update} clear = {clearDisplay} />
         </Form>
         </COL><COL >
-      <ListTasks  className = "list-border" range={range} flag={flag} updateState={updateState} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
+      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
       </Container>
       </>
     );

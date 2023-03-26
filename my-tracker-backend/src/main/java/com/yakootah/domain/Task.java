@@ -8,13 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 
 @Entity(name = "tasks")
 public class Task 
 {
 	@Id
-	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
     @SequenceGenerator(allocationSize = 1, name = "task_seq", sequenceName = "TASK_SEQUENCE")
 	private Long id;
 	@Column(length = 100 , nullable = false)
@@ -27,6 +28,10 @@ public class Task
 	private String comment;
 	@Column(name= "key", nullable = false)
 	private Long myKey;
+	@Transient
+	private boolean state;
+	
+	private boolean deleted;
 	
 	@ManyToOne
 	@JoinColumn(name = "week_id", nullable = false)
@@ -88,4 +93,18 @@ public class Task
 		this.myKey = key;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
 }
