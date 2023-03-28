@@ -6,11 +6,8 @@ const Footer = (props) => {
 
     return (
       <Container className = {props.className} >
-             <Button className="text-uppercase  btn-outline-primary gap" variant='none' onClick={props.add}>
-              add
-            </Button>
             <Button className="text-uppercase  btn-outline-danger gap" variant='none' onClick={props.update}>
-              update
+              add/update
             </Button>
             <Button className="text-uppercase  btn-outline-warning gap" variant='none'  onClick={props.clear}>
               clear

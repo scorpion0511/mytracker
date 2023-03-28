@@ -15,7 +15,7 @@ const ListTasks = (props) => {
    {
        let foundIt = false;
        for (let i = 0; i < rows.length; i++) {
-         if (rows[i].name == task.name && rows[i].myKey == task.myKey && task.myKey !=0 && props.updateState == 'U') 
+         if (rows[i].name == task.name && rows[i].myKey == task.myKey && task.myKey !=0) 
          {
             rows[i] = copy(task);
             foundIt = true;
@@ -164,7 +164,7 @@ const ListTasks = (props) => {
 
   const load = (e) => {
     const range = props.week.range;
-    if (range =='' || range == 'undefined')
+    if (range =='' || range == 'undefined'|| range == null)
     {
       alert ('Please, Enter Date');
     }

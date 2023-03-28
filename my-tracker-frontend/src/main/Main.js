@@ -38,14 +38,7 @@ const Main = (props) => {
   const handleMinChange = (event) => {
     setMin(event.target.value);
   };
-  const add = (event) => {
-    setUpdateState('A');
-    task.myKey = 0;
-    prepareTaskData();
-  };
   const update = (event) => {
-    setUpdateState('U');
-    task.myKey = myKey;
     prepareTaskData();
   };
   const prepareTaskData = () =>
@@ -56,6 +49,7 @@ const Main = (props) => {
       task.hour = hour;
       task.comment = comment;
       task.min = min; 
+      task.myKey = myKey;
       setFlag(name+hour+min+comment);
       setTask(task); //not needed for listTask repaint as react will repaint child because of myKey change
     }
@@ -77,6 +71,7 @@ const Main = (props) => {
   }
   const closeWeek = () => {
       setSelectedDate(null);
+      setWeek({id:0,range:''});
       clearDisplay();
   }
   const clearDisplay = () => {
@@ -171,7 +166,7 @@ const Main = (props) => {
           </Form.Group>
           <Form.Group style={{ display: 'none' }} controlId="formKey">
           <Form.Control  type="text" value={myKey} onChange={handleMyKeyChange}/></Form.Group>
-          <Footer className="general-border calculate" add = {add} update = {update} clear = {clearDisplay} />
+          <Footer className="general-border calculate"  update = {update} clear = {clearDisplay} />
         </Form>
         </COL><COL >
       <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState}  closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
