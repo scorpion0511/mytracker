@@ -6,6 +6,7 @@ import ROW from 'react-bootstrap/ROW';
 import COL from 'react-bootstrap/COL'; 
 import Footer from '../footer/Footer';
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import Header from '../header/Header';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -86,6 +87,7 @@ const Main = (props) => {
     setMyKey(0); //calling setMyKey will lead repaint and calling of clearDisplay again [unpredicated work]
     setDeleteHiglight(-1*deleteHiglight);//to cause useEffect to work when this value changes
   };
+ 
   const [selectedDate, setSelectedDate] = useState(null);
 
     const handleDateChange = (date) => {
@@ -128,7 +130,7 @@ const Main = (props) => {
       <ROW>
         <Header className='general-border' />
         <Form.Group  controlId="formTaskName">
-            <Form.Label>Pick Date</Form.Label>
+            <Form.Label>Pick Date</Form.Label> 
             <DatePicker className='datePicker' selected={selectedDate} onChange={date => handleDateChange(date)}/>
           </Form.Group>
         

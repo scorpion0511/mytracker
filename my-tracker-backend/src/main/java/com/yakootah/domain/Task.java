@@ -1,5 +1,7 @@
 package com.yakootah.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity(name = "tasks")
-public class Task 
+public class Task implements Serializable
 {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
     @SequenceGenerator(allocationSize = 1, name = "task_seq", sequenceName = "TASK_SEQUENCE")
@@ -35,6 +42,7 @@ public class Task
 	
 	@ManyToOne
 	@JoinColumn(name = "week_id", nullable = false)
+	@JsonBackReference
 	private Week week;
 
 	public Week getWeek() {

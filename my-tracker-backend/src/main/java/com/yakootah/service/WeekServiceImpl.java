@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.yakootah.domain.Task;
 import com.yakootah.domain.Week;
-import com.yakootah.hibernate.WeekRepoImpl;
+import com.yakootah.hibernate.WeekRepo;
 @Service
 public class WeekServiceImpl implements WeekService {
 
 	@Autowired
-	private WeekRepoImpl repo;
+	private WeekRepo repo;
 	
 	@Override
 	public Week create(Week week) {
@@ -110,6 +110,16 @@ public class WeekServiceImpl implements WeekService {
     	}
     	
     }
+	@Override
+	public Week getWeek(String weekRange) 
+	{
+	    List<Week> weeks= repo.findByWeek(weekRange);
+	    if (weeks !=null && weeks.size() >0)
+	    {
+	    	return weeks.get(0);
+	    }
+	    return new Week();
+	}
     
    
 

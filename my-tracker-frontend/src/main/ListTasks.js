@@ -24,6 +24,7 @@ const ListTasks = (props) => {
        }
        if (!foundIt && task.name.trim().length > 0)
        {
+        task.myKey = Date.now();
         rows = [copy(task), ...rows]
        }
        return rows;
@@ -48,7 +49,7 @@ const ListTasks = (props) => {
      copy.hour = task.hour;
      copy.min = task.min;
      copy.comment = task.comment;
-     copy.myKey = task.myKey == 0 ? Date.now() : task.myKey;
+     copy.myKey = task.myKey;
      return copy;
   }   
 
@@ -160,13 +161,37 @@ const ListTasks = (props) => {
       ;
   };
 
+
+  const load = (e) => {
+    const range = props.week.range;
+    if (range =='' || range == 'undefined')
+    {
+      alert ('Please, Enter Date');
+    }
+     fetch(`http://localhost:8080/tracker/api/get?week=${range}`, {
+   method: 'GET',
+   headers: {
+     'Content-Type': 'application/json',
+     'accept': 'application/json'
+   }
+ })
+ .then(response => response.json())
+ .then(data => {
+   const { week, id, tasks } = data;
+   setTasks(tasks);
+   props.updateWeekId(id)
+ })
+ .catch(error => console.error(error));
+ 
+   };
+
+
   const getRows = () =>
   {
     return tasks.filter(element => element.name.length > 0);
   }
   return (
-    getRows().length > 0 ?
-    (<Container className={props.className}>
+  <Container className={props.className}>
       <ROW>
       <ListGroup>
         {getRows().map((text, index) => (
@@ -189,33 +214,39 @@ const ListTasks = (props) => {
       </ROW>
       <ROW className='App'>
        <COL>
-      <Button className="text-uppercase btn-outline-success gap"  variant='none' onClick={calculate}>
-            calculate Time
+      <Button className="text-uppercase btn-outline-success  btn-sm gap"  variant='none' onClick={calculate}>
+            calculate
       </Button>
       </COL>
       
       <COL>
-      <Button className="text-uppercase btn-outline-success gap"  variant='none' onClick={listView}>
-            list tasks
+      <Button className="text-uppercase btn-outline-success  btn-sm gap"  variant='none' onClick={listView}>
+            list
       </Button>
       </COL>
       <COL>
-      <Button className="text-uppercase  btn-outline-dark gap" variant='none' onClick={save}>
+      <Button className="text-uppercase  btn-outline-dark  btn-sm gap" variant='none' onClick={save}>
               save
             </Button>
             </COL>
       <COL>
-       <Button className="text-uppercase btn-outline-danger gap"  variant='none' onClick={deleteRow}>
+       <Button className="text-uppercase btn-outline-danger  btn-sm gap"  variant='none' onClick={deleteRow}>
             remove
       </Button>
       </COL>
       <COL>
-       <Button className="text-uppercase btn-outline-primary gap"  variant='none' onClick={closeWeek}>
-            close week
+       <Button className="text-uppercase btn-outline-primary  btn-sm gap"  variant='none' onClick={closeWeek}>
+            close
+      </Button>
+      </COL>
+
+      <COL>
+       <Button className="text-uppercase btn-outline-warning  btn-sm gap"  variant='none' onClick={load}>
+            load
       </Button>
       </COL>
       </ROW>
-    </Container>) :''
+    </Container>
   );
 };
 export default ListTasks;

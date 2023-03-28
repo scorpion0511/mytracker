@@ -19,5 +19,7 @@ public interface WeekService {
 
 	public Week update(Week week);
 
+	public Week getWeek(String weekRange);
+
 	public Week createNewWeek(Week week);
 }
