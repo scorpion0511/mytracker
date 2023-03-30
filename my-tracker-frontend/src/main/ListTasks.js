@@ -15,7 +15,7 @@ const ListTasks = (props) => {
    {
        let foundIt = false;
        for (let i = 0; i < rows.length; i++) {
-         if (rows[i].name == task.name && rows[i].myKey == task.myKey && task.myKey !=0) 
+         if (rows[i].name.toUpperCase() == task.name.toUpperCase() && rows[i].myKey == task.myKey && task.myKey !=0) 
          {
             rows[i] = copy(task);
             foundIt = true;
@@ -67,7 +67,7 @@ const ListTasks = (props) => {
     const aggregatedArray = [];
 
     tasks.forEach(item => {
-    const index = aggregatedArray.findIndex(x => x.name === item.name);
+    const index = aggregatedArray.findIndex(x => x.name.toUpperCase() === item.name.toUpperCase());
     if (item.name.length > 0)
     {
         if (index === -1) {
@@ -154,7 +154,6 @@ const ListTasks = (props) => {
       if (response.ok) {
         return response.json();
       }
-      throw new Error('Network response was not ok.');
     })
       .then(data => props.updateWeekId(data))
       .catch(error => alert(error))
@@ -179,9 +178,13 @@ const ListTasks = (props) => {
  .then(data => {
    const { week, id, tasks } = data;
    setTasks(tasks);
+   if (id == 0 || id == null)
+   {
+       alert("Week doesn't exist.");
+   }
    props.updateWeekId(id)
  })
- .catch(error => console.error(error));
+ .catch(error => alert(error));
  
    };
 
