@@ -1,0 +1,6 @@
+./target
+./.settings
+#./classpth
+./.project
+./.tern-project
+./src/test

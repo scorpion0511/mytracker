@@ -9,8 +9,8 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.6</version>
 	</parent>
-	<artifactId>spark</artifactId>
-	<groupId>IBM</groupId>
+	<artifactId>mytracker</artifactId>
+	<groupId>yakootah</groupId>
 	<packaging>war</packaging>
 	<name>Spring Boot Web JSP Sample</name>
 	<description>Spring Boot Web JSP Sample</description>
@@ -66,6 +66,11 @@
 </dependency>
 
 
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>jdbc</artifactId>
+			<version>42.6</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

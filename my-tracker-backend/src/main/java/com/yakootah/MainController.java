@@ -15,7 +15,7 @@ import com.yakootah.service.WeekService;
 
 @RestController
 @RequestMapping(value = "/api", produces={"text/plain","application/json"})
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class MainController
 {
 	@Autowired

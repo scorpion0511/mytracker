@@ -2,11 +2,10 @@ import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
 import ListTasks from './ListTasks';
-import ROW from 'react-bootstrap/ROW'; 
-import COL from 'react-bootstrap/COL'; 
+import Row from 'react-bootstrap/Row'; 
+import Col from 'react-bootstrap/Col'; 
 import Footer from '../footer/Footer';
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Header from '../header/Header';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -122,14 +121,14 @@ const Main = (props) => {
     return (
       <>
      <Container className= {props.className}>
-      <ROW>
+      <Row>
         <Header className='general-border' />
         <Form.Group  controlId="formTaskName">
             <Form.Label>Pick Date</Form.Label> 
             <DatePicker className='datePicker' selected={selectedDate} onChange={date => handleDateChange(date)}/>
           </Form.Group>
         
-      <COL>
+      <Col>
         <Form>
           <Form.Group  controlId="formTaskName">
             <Form.Label>Task Name</Form.Label>
@@ -168,8 +167,8 @@ const Main = (props) => {
           <Form.Control  type="text" value={myKey} onChange={handleMyKeyChange}/></Form.Group>
           <Footer className="general-border calculate"  update = {update} clear = {clearDisplay} />
         </Form>
-        </COL><COL >
-      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState}  closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></COL></ROW>
+        </Col><Col >
+      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState}  closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></Col></Row>
       </Container>
       </>
     );

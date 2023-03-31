@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import ROW from 'react-bootstrap/ROW'; 
-import COL from 'react-bootstrap/COL'; 
+import Row from 'react-bootstrap/Row'; 
+import Col from 'react-bootstrap/Col'; 
 
 
 const ListTasks = (props) => {
@@ -143,7 +143,8 @@ const ListTasks = (props) => {
   const save = (e) => {
     const week = props.week.range;
     const id = props.week.id;
-    fetch('http://localhost:8080/tracker/api/save', {
+    // using container service to connect didn't work
+    fetch('http://localhost:8500/tracker/api/save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -166,8 +167,9 @@ const ListTasks = (props) => {
     if (range =='' || range == 'undefined'|| range == null)
     {
       alert ('Please, Enter Date');
+      return;
     }
-     fetch(`http://localhost:8080/tracker/api/get?week=${range}`, {
+     fetch(`http://localhost:8500/tracker/api/get?week=${range}`, {
    method: 'GET',
    headers: {
      'Content-Type': 'application/json',
@@ -195,7 +197,7 @@ const ListTasks = (props) => {
   }
   return (
   <Container className={props.className}>
-      <ROW>
+      <Row>
       <ListGroup>
         {getRows().map((text, index) => (
           <ListGroup.Item 
@@ -214,41 +216,41 @@ const ListTasks = (props) => {
           key={index}>{text.name}-{text.hour}:{text.min}[{text.comment}]</ListGroup.Item>
         ))}
       </ListGroup>
-      </ROW>
-      <ROW className='App'>
-       <COL>
+      </Row>
+      <Row className='App'>
+       <Col>
       <Button className="text-uppercase btn-outline-success  btn-sm gap"  variant='none' onClick={calculate}>
             calculate
       </Button>
-      </COL>
+      </Col>
       
-      <COL>
+      <Col>
       <Button className="text-uppercase btn-outline-success  btn-sm gap"  variant='none' onClick={listView}>
             list
       </Button>
-      </COL>
-      <COL>
+      </Col>
+      <Col>
       <Button className="text-uppercase  btn-outline-dark  btn-sm gap" variant='none' onClick={save}>
               save
             </Button>
-            </COL>
-      <COL>
+            </Col>
+      <Col>
        <Button className="text-uppercase btn-outline-danger  btn-sm gap"  variant='none' onClick={deleteRow}>
             remove
       </Button>
-      </COL>
-      <COL>
+      </Col>
+      <Col>
        <Button className="text-uppercase btn-outline-primary  btn-sm gap"  variant='none' onClick={closeWeek}>
             close
       </Button>
-      </COL>
+      </Col>
 
-      <COL>
+      <Col>
        <Button className="text-uppercase btn-outline-warning  btn-sm gap"  variant='none' onClick={load}>
             load
       </Button>
-      </COL>
-      </ROW>
+      </Col>
+      </Row>
     </Container>
   );
 };
