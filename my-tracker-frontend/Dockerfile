@@ -14,7 +14,7 @@ EXPOSE 3000
 
 CMD [ "npx", "serve", "build" ]
 
-#use nginx rather than webpack server
+#use nginx rather than webpack server 
 #FROM nginx:1.19.0
 #RUN rm -rf ./*
 #COPY --from=x /app/build .
