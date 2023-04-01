@@ -8,7 +8,7 @@ trigger:
         - main
   paths:
       include:
-        - my-tracker-frontend/*
+        - my-tracker-backend/*
 
 resources:
 - repo: self
