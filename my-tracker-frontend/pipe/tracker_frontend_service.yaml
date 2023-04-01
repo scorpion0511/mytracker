@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service              
 metadata:
-  name: tracker_frontend_service
+  name: tracker-frontend-service
 spec:
   type: LoadBalancer
   ports:

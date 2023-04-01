@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment                                          
 metadata:
-  name: tracker_frontend_pod
+  name: tracker-frontend-pod
   labels:
     app: tracker
 spec:
