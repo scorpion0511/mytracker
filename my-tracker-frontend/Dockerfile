@@ -2,6 +2,7 @@ FROM node:16-alpine as x
 
 WORKDIR /app
 
+#copy all except those in dockerignore
 COPY . .
 
 # Install dependencies 
