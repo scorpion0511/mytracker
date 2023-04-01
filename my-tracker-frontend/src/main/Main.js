@@ -107,6 +107,7 @@ const Main = (props) => {
       result = false;
       error += ' [Time Spent]';
     }
+    
     if (selectedDate == null || selectedDate === '') 
     {
       result = false;
