@@ -8,6 +8,7 @@ RUN export PATH=$PATH:/opt/maven/apache-maven-3.8.6/bin
 RUN mkdir /app
 WORKDIR /app
 COPY . .
+# Add DB jar to repository
 RUN /opt/maven/apache-maven-3.8.8/bin/mvn install:install-file -Dfile=/app/src/main/resources/jars/postgresql-42.6.0.jar -DgroupId=postgresql -DartifactId=jdbc -Dversion=42.6 -Dpackaging=jar
 RUN /opt/maven/apache-maven-3.8.8/bin/mvn package  -Dmaven.test.skip=true
 CMD [ "java" , "-jar", "/app/target/mytracker-1.0.0.war"]
