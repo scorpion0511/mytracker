@@ -8,7 +8,7 @@ volumes:
 
 services:
   web:
-    image: tracker_frontend:latest
+    image: sherifsadek/tracker_frontend:latest
     container_name: front
     ports:
     - "8000:3000"
