@@ -29,7 +29,7 @@ stages:
       inputs:
         command: buildAndPush
         dockerfile: '$(Build.SourcesDirectory)/my-tracker-frontend/Dockerfile'
-        containerRegistry: sherifsadek
+        containerRegistry: docker
         repository: sherifsadek/tracker_frontend
         tags: |
           $(tag)
