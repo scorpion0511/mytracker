@@ -102,6 +102,7 @@ const Main = (props) => {
       result = false;
       error += ' [Task Name]';
     }
+    
     if (hour == 0 && min == 0) 
     {
       result = false;
