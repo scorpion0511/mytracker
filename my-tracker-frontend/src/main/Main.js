@@ -111,7 +111,7 @@ const Main = (props) => {
     {
       result = false;
       error += ' [Date]';
-    }
+    } 
     if (!result)
     {
       alert(error);
