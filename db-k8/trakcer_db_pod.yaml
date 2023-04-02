@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracker-db
+spec:
+  selector:
+    matchLabels:
+      app: tracker-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tracker-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:14-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: pdwrkstn
+        - name: POSTGRES_USER
+          value: panorama
+        - name: POSTGRES_DB
+          value: tracker
+        volumeMounts:
+        - name: db-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: db-data
+        emptyDir: {}
+

@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment                                          
 metadata:
-  name: tracker-frontend-pod
+  name: tracker-frontend
   labels:
-    app: tracker
+    app: tracker-frontend
 spec:
   selector:
     matchLabels:
-      app: tracker
+      app: tracker-frontend
   strategy:
     type: RollingUpdate                                   
     rollingUpdate: 
@@ -16,11 +16,11 @@ spec:
   template:
     metadata:
       labels:
-        app: tracker                                 
+        app: tracker-frontend                                 
     spec:
       containers:
         - image: sherifsadek/tracker_frontend:latest
           imagePullPolicy: IfNotPresent                         
-          name: tracker
+          name: tracker-frontend
           ports:
             - containerPort: 3000
