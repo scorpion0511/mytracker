@@ -19,7 +19,7 @@ spec:
         app: tracker-frontend                                 
     spec:
       containers:
-        - image: sherifsadek/tracker_frontend:25
+        - image: sherifsadek/tracker_frontend:27
           imagePullPolicy: IfNotPresent                         
           name: tracker-frontend
           ports:
