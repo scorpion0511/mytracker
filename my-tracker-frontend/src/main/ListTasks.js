@@ -148,7 +148,7 @@ const ListTasks = (props) => {
     //http://localhost:8500/tracker/api/save
 
     //connecting to pod
-    fetch('http://tracker-frontend-service:8500/tracker/api/save', {
+    fetch('http://tracker-backend-service:8500/tracker/api/save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -173,7 +173,7 @@ const ListTasks = (props) => {
       alert ('Please, Enter Date');
       return;
     }
-     fetch(`http://tracker-frontend-service:8500/tracker/api/get?week=${range}`, {
+     fetch(`http://tracker-backend-service:8500/tracker/api/get?week=${range}`, {
    method: 'GET',
    headers: {
      'Content-Type': 'application/json',
