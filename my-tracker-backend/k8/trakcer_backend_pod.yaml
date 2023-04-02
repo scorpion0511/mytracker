@@ -19,17 +19,15 @@ spec:
         app: tracker-backend                                 
     spec:
       containers:
-        - image: sherifsadek/tracker_backend:latest
+        - image: sherifsadek/tracker_backend:24
           imagePullPolicy: IfNotPresent
           name: tracker-backend
           ports:
             - containerPort: 8080
           env:
-            - name: PGHOST
-              value: postgres
-            - name: PGDATABASE
-              value: tracker
-            - name: PGUSER
-              value: panorama
-            - name: PGPASSWORD
-              value: pdwrkstn  
+          - name: POSTGRES_PASSWORD
+            value: pdwrkstn
+          - name: POSTGRES_USER
+            value: panorama
+          - name: POSTGRES_DB
+            value: tracker
