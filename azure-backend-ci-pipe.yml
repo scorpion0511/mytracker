@@ -29,8 +29,8 @@ stages:
       displayName: Build an image
       inputs:
         command: buildAndPush
-        dockerfile: '$(Build.SourcesDirectory)/my-tracker_backend/Dockerfile'
+        dockerfile: '$(Build.SourcesDirectory)/my-tracker-backend/Dockerfile'
         containerRegistry: docker
         repository: sherifsadek/tracker_backend
-        tags: |
+        tags:
           $(tag)

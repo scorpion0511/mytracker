@@ -32,5 +32,5 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/my-tracker-frontend/Dockerfile'
         containerRegistry: docker
         repository: sherifsadek/tracker_frontend
-        tags: |
+        tags:
           $(tag)
