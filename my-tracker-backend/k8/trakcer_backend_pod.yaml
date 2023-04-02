@@ -23,7 +23,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: tracker-backend
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           env:
           - name: POSTGRES_PASSWORD
             value: pdwrkstn

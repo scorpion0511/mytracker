@@ -143,8 +143,12 @@ const ListTasks = (props) => {
   const save = (e) => {
     const week = props.week.range;
     const id = props.week.id;
-    // using container service to connect didn't work
-    fetch('http://localhost:8500/tracker/api/save', {
+    // using container service to connect didn't work tracker-frontend-service
+    //connecting to container
+    //http://localhost:8500/tracker/api/save
+
+    //connecting to pod
+    fetch('http://tracker-frontend-service:8500/tracker/api/save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -169,7 +173,7 @@ const ListTasks = (props) => {
       alert ('Please, Enter Date');
       return;
     }
-     fetch(`http://localhost:8500/tracker/api/get?week=${range}`, {
+     fetch(`http://tracker-frontend-service:8500/tracker/api/get?week=${range}`, {
    method: 'GET',
    headers: {
      'Content-Type': 'application/json',
