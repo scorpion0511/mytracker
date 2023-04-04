@@ -1,28 +1,23 @@
 version: '3.7'
-
 networks:
   localnet:
-
 volumes:
   db_data:
-
 services:
   web:
-    image: sherifsadek/tracker_frontend:latest
+    image: sherifsadek/tracker_frontend:30
     container_name: front
     ports:
     - "8000:3000"
     networks:
     - localnet
-
   backend:
-    image: tracker_backend:latest
+    image: sherifsadek/tracker_backend:32
     container_name: back
     ports:
     - "8500:8081"
     networks:
     - localnet
-
   db:
     image: postgres:14-alpine
     container_name: pg14
