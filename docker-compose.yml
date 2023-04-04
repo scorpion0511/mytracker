@@ -12,7 +12,7 @@ services:
     networks:
     - localnet
   backend:
-    image: sherifsadek/tracker_backend:32
+    image: sherifsadek/tracker_backend:33
     container_name: back
     ports:
     - "8500:8081"
