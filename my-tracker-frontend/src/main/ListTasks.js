@@ -56,9 +56,16 @@ const ListTasks = (props) => {
   const listView = () =>
   {
     let display = '';
-     const tasks = aggregateTasks();
-     tasks.forEach(element => {
-      display += element.name + ":" + element.hour + ":" + element.min + '\n';
+     const myTasks = aggregateTasks();
+     myTasks.forEach(element => {
+      if (element.hour > 0)
+      {
+          display += element.name + ": " + element.hour.toFixed(2) + "\n";
+      }
+      else
+      {
+        display += element.name + ": 0." + element.min + "\n";
+      }
      });
      alert(display);
   }
@@ -70,19 +77,26 @@ const ListTasks = (props) => {
     const index = aggregatedArray.findIndex(x => x.name.toUpperCase() === item.name.toUpperCase());
     if (item.name.length > 0)
     {
-        if (index === -1) {
-          aggregatedArray.push({ name: item.name, hour: item.hour, min: item.min });
-        } else {
-          aggregatedArray[index].hour = parseInt(aggregatedArray[index].hour) + parseInt(item.hour);
-          aggregatedArray[index].min  = parseInt(aggregatedArray[index].min) + parseInt(item.min);
+      let hr = parseInt(item.hour);
+      const mn = parseInt(item.min);
+
+        if (index === -1) 
+        {
+          aggregatedArray.push({ name: item.name, hour: hr + mn/60, min: 0 });
+        } 
+        else 
+        {
+          aggregatedArray[index].min  = aggregatedArray[index].min + mn;
+          aggregatedArray[index].hour  = aggregatedArray[index].hour + hr + aggregatedArray[index].min/60;
+          aggregatedArray[index].min = 0;
         }
     }
   });
   return aggregatedArray;
   }
-  const calculateHour = () =>
+  const calculateHour = (myTasks) =>
   {
-    const sum = tasks.reduce((accumulator , currentValue) => 
+    const sum = myTasks.reduce((accumulator , currentValue) => 
     {
         const value = parseInt(currentValue.hour);
         if (isNaN(value)) 
@@ -96,9 +110,9 @@ const ListTasks = (props) => {
     }, 0);
     return sum;
   }
-  const calculateMin = () =>
+  const calculateMin = (myTasks) =>
   {
-    const sum = tasks.reduce((accumulator , currentValue) => 
+    const sum = myTasks.reduce((accumulator , currentValue) => 
     {
         const value = parseInt(currentValue.min);
         if (isNaN(value)) 
@@ -112,11 +126,15 @@ const ListTasks = (props) => {
     }, 0);
     return sum;
   }
-  const calculate = () =>
+  const calculateAndDisplay = () =>
   {
-      const minToHours = calculateMin() / 60 ;
-      const hours = calculateHour() + minToHours;
-      alert(hours.toFixed(2) + ' Hours');
+      alert(calculate(tasks));
+  }
+  const calculate = (myTasks) =>
+  {
+      const minToHours = calculateMin(myTasks) / 60 ;
+      const hours = calculateHour(myTasks) + minToHours;
+      return(hours.toFixed(2) + ' Hours');
   }
   const [selectedRowHighlighted, setSelectedRowHighlighted] = useState(null);
   const [deletedRowHighlighted, setDeletedRowHighlighted] = useState(null);
@@ -148,7 +166,8 @@ const ListTasks = (props) => {
     //http://localhost:8500/tracker/api/save
 
     //connecting to pod
-    fetch('http://tracker-backend-service:8500/tracker/api/save', {
+    //fetch('http://tracker-backend-service:8500/tracker/api/save', {
+      fetch('http://localhost:8500/tracker/api/save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -173,7 +192,7 @@ const ListTasks = (props) => {
       alert ('Please, Enter Date');
       return;
     }
-     fetch(`http://tracker-backend-service:8500/tracker/api/get?week=${range}`, {
+     fetch(`http://localhost:8500/tracker/api/get?week=${range}`, {
    method: 'GET',
    headers: {
      'Content-Type': 'application/json',
@@ -202,6 +221,7 @@ const ListTasks = (props) => {
   return (
   <Container className={props.className}>
       <Row>
+      <div style={{ height: '260px', overflowY: 'scroll' }}>
       <ListGroup>
         {getRows().map((text, index) => (
           <ListGroup.Item 
@@ -220,10 +240,11 @@ const ListTasks = (props) => {
           key={index}>{text.name}-{text.hour}:{text.min}[{text.comment}]</ListGroup.Item>
         ))}
       </ListGroup>
+      </div>
       </Row>
       <Row className='App'>
        <Col>
-      <Button className="text-uppercase btn-outline-success  btn-sm gap"  variant='none' onClick={calculate}>
+      <Button className="text-uppercase btn-outline-success  btn-sm gap"  variant='none' onClick={calculateAndDisplay}>
             calculate
       </Button>
       </Col>

@@ -10,11 +10,11 @@ const Header = (props) => {
       <Container className={props.className}>
         <Row>
           <Col>   
-            <h3 className='topParag'>Time Tracker{ver}</h3>
+            <h3 className='topParag'>Task Tracker{ver}</h3>
           </Col>
           <Col className= "text-center"><p className='topParag'>{props.version}</p></Col>
           <Col className="right">
-            <Image src="logo.jpg" className="logo" thumbnail />
+            <Image src="logo.png" className="logo" thumbnail />
           </Col>
         </Row>
       </Container>
