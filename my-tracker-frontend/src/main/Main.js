@@ -16,7 +16,6 @@ const Main = (props) => {
   const [comment, setComment] = useState('');
   const [min, setMin] = useState('');
   const [hour, setHour] = useState('');
-  const [updateState, setUpdateState] = useState('');
   const [myKey, setMyKey] = useState(0);
   const [deleteHiglight, setDeleteHiglight] = useState('');
   const [flag, setFlag] = useState('');
@@ -103,7 +102,7 @@ const Main = (props) => {
       error += ' [Task Name]';
     }
     
-    if (hour == 0 && min == 0) 
+    if (hour === 0 && min === 0) 
     {
       result = false;
       error += ' [Time Spent]';
@@ -170,7 +169,7 @@ const Main = (props) => {
           <Footer className="general-border calculate"  update = {update} clear = {clearDisplay} />
         </Form>
         </Col><Col >
-      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} updateState={updateState}  closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></Col></Row>
+      <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></Col></Row>
       </Container>
       </>
     );

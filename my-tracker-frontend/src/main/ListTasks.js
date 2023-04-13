@@ -15,7 +15,7 @@ const ListTasks = (props) => {
    {
        let foundIt = false;
        for (let i = 0; i < rows.length; i++) {
-         if (rows[i].name.toUpperCase() == task.name.toUpperCase() && rows[i].myKey == task.myKey && task.myKey !=0) 
+         if (rows[i].name.toUpperCase() == task.name.toUpperCase() && rows[i].myKey == task.myKey && task.myKey !==0) 
          {
             rows[i] = copy(task);
             foundIt = true;
@@ -39,8 +39,8 @@ const ListTasks = (props) => {
       }, [props.flag]);
 
       useEffect(() => {
-        setSelectedRowHighlighted(-1);
-      }, [props.delHiglight]);
+         setSelectedRowHighlighted(-1);
+        }, [props.delHiglight]);
 
   const copy = (task) =>
   {
@@ -142,7 +142,7 @@ const ListTasks = (props) => {
   const deleteRow = () =>
   {
     tasks.splice(deletedRowHighlighted, 1);
-    if (deletedRowHighlighted == selectedRowHighlighted )
+    if (deletedRowHighlighted === selectedRowHighlighted )
     {
       setSelectedRowHighlighted(-1);
       props.clear();
@@ -187,7 +187,7 @@ const ListTasks = (props) => {
 
   const load = (e) => {
     const range = props.week.range;
-    if (range =='' || range == 'undefined'|| range == null)
+    if (range =='' || range === 'undefined'|| range === null)
     {
       alert ('Please, Enter Date');
       return;
@@ -201,9 +201,9 @@ const ListTasks = (props) => {
  })
  .then(response => response.json())
  .then(data => {
-   const { week, id, tasks } = data;
+   const { id, tasks } = data;
    setTasks(tasks);
-   if (id == 0 || id == null)
+   if (id === 0 || id === null)
    {
        alert("Week doesn't exist.");
    }
