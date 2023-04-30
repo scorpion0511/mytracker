@@ -1,0 +1,7 @@
+echo "# hackathon-react project" >> README.md 
+git init
+git add . –A      
+git commit -m "initial commit" 
+git remote add origin git@github.com:account-name/hackathon-react  
+git branch -M main
+git push -u origin main

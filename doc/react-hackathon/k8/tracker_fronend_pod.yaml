@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment                                          
+metadata:
+  name: tracker-frontend
+  labels:
+    app: tracker-frontend
+spec:
+  selector:
+    matchLabels:
+      app: tracker-frontend
+  strategy:
+    type: RollingUpdate                                   
+    rollingUpdate: 
+      maxUnavailable: 1                                   
+      maxSurge: 1                                         
+  template:
+    metadata:
+      labels:
+        app: tracker-frontend                                 
+    spec:
+      containers:
+        - image: sherifsadek/tracker_frontend:28
+          imagePullPolicy: IfNotPresent                         
+          name: tracker-frontend
+          ports:
+            - containerPort: 3000

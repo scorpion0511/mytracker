@@ -1,0 +1,7 @@
+"type": "chrome",
+        "request": "launch",
+        "name": "Debug CRA",
+        "url": "http://localhost:4000",
+        "webRoot": "${workspaceFolder}",
+        "sourceMapPathOverrides": {
+          "webpack:///src/*": "${webRoot}/src/*"
