@@ -10,6 +10,7 @@ import Header from '../header/Header';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
+import { properties } from './messageProperties';
 
 const Main = (props) => {
   const [name, setName] = useState('');
@@ -95,23 +96,23 @@ const Main = (props) => {
   const validate = () =>
   {
     let result = true;
-    let error = 'Missing info:';
+    let error = properties.missingInfo;
     if (name.trim() === '') 
     {
       result = false;
-      error += ' [Task Name]';
+      error += properties.missingName;
     }
     
     if (hour === 0 && min === 0) 
     {
       result = false;
-      error += ' [Time Spent]';
+      error += properties.missingTime;
     }
     
     if (selectedDate == null || selectedDate === '') 
     {
       result = false;
-      error += ' [Date]';
+      error += properties.missingDate;
     } 
     if (!result)
     {
@@ -166,13 +167,11 @@ const Main = (props) => {
           </Form.Group>
           <Form.Group style={{ display: 'none' }} controlId="formKey">
           <Form.Control  type="text" value={myKey} onChange={handleMyKeyChange}/></Form.Group>
-          <Footer className="general-border calculate"  update = {update} clear = {clearDisplay} />
+          <Footer className="general-border center calculate"  update = {update} clear = {clearDisplay} />
         </Form>
         </Col><Col >
       <ListTasks  className = "list-border" updateWeekId={updateWeekId} week={week} flag={flag} closeWeek = {closeWeek} task={task} populate={populate} clear = {clearDisplay} delHiglight = {deleteHiglight}/></Col></Row>
       </Container>
       </>
     );
-}
-
-export default Main;
+};export default Main;

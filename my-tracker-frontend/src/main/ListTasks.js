@@ -5,11 +5,13 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col'; 
+import { properties } from './messageProperties';
 
 
 const ListTasks = (props) => {
    const [tasks, setTasks] = useState([]);
    const [week, setWeek] = useState({range:'', id: 0});
+   const [message, setMessage] = useState('');
 
    const updateMatchingRow = (rows, task) =>
    {
@@ -179,11 +181,22 @@ const ListTasks = (props) => {
         return response.json();
       }
     })
-      .then(data => props.updateWeekId(data))
+      .then(data => 
+        {
+          props.updateWeekId(data);
+          setATimedMessage(data);
+
+          
+        })
       .catch(error => alert(error))
       ;
   };
-
+  const setATimedMessage = (id) =>
+  {
+   const msg = properties.savedData.replace("[0]", `[${id}]`);
+   setMessage(msg);
+   setTimeout( () => {setMessage('');}, 3000);
+  }
 
   const load = (e) => {
     const range = props.week.range;
@@ -220,6 +233,8 @@ const ListTasks = (props) => {
   }
   return (
   <Container className={props.className}>
+        <div id="messageId" className='messageArea'>{message}</div>
+
       <Row>
       <div style={{ height: '260px', overflowY: 'scroll' }}>
       <ListGroup>
