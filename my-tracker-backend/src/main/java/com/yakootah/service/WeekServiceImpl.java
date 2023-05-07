@@ -3,6 +3,8 @@ package com.yakootah.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.yakootah.domain.Task;
 import com.yakootah.domain.Week;
 import com.yakootah.hibernate.WeekRepo;
 @Service
+@Transactional
 public class WeekServiceImpl implements WeekService {
 
 	@Autowired
@@ -90,6 +93,7 @@ public class WeekServiceImpl implements WeekService {
     				taskDB.setHour(task.getHour());
     				taskDB.setMin(task.getMin());
     				taskDB.setName(task.getName());
+    				taskDB.setIncluded(task.isIncluded());
     				foundIt = true;
     				task.setState(true);
     				break;

@@ -39,6 +39,9 @@ public class Task implements Serializable
 	private boolean state;
 	
 	private boolean deleted;
+   
+	@Column (name="included")
+	private boolean included;
 	
 	@ManyToOne
 	@JoinColumn(name = "week_id", nullable = false)
@@ -114,5 +117,12 @@ public class Task implements Serializable
 
 	public void setState(boolean state) {
 		this.state = state;
+	}
+	public boolean isIncluded() {
+		return included;
+	}
+
+	public void setIncluded(boolean included) {
+		this.included = included;
 	}
 }
